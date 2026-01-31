@@ -1,0 +1,336 @@
+{% extends 'frontend/master.html' %}
+
+{% block slide %}
+    {# This block is empty, as in your example #}
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+    /* --- Black & White Shop Theme --- */
+    main {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    /* --- Sidebar --- */
+    .filter-sidebar {
+        background-color: #ffffff;
+        border: 2px solid #000000;
+        border-radius: 0;
+        box-shadow: none !important;
+    }
+
+    .filter-sidebar h4,
+    .filter-sidebar h5 {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #000000;
+    }
+
+    /* --- Category List --- */
+    .list-group {
+        border-radius: 0;
+    }
+    .list-group-item {
+        border: none;
+        padding: 0.5rem 0;
+        background-color: transparent;
+    }
+    .list-group-item a {
+        color: #000000;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .list-group-item a:hover {
+        text-decoration: underline;
+    }
+    /* Simple text count instead of blue badge */
+    .category-count {
+        font-weight: 700;
+        color: #000000;
+        font-size: 0.9rem;
+    }
+
+    /* --- Forms --- */
+    .form-control {
+        border-radius: 0;
+        border: 2px solid #000000;
+    }
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #000000;
+    }
+    .form-control-range {
+        color: #000000;
+    }
+    /* Simple style for range, deep customization is complex */
+    input[type=range] {
+        accent-color: #000000;
+    }
+
+    /* --- Product Card --- */
+    .product-card {
+        background-color: #ffffff;
+        border: 1px solid #000000;
+        border-radius: 0;
+        box-shadow: none;
+        transition: transform 0.2s ease-in-out;
+    }
+    .product-card:hover {
+        transform: scale(1.02);
+    }
+    .product-card .card-img-top {
+        border-radius: 0;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+    .product-card .card-body {
+        text-align: center;
+    }
+    .product-card .card-title a {
+        color: #000000;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .product-card .card-price {
+        color: #000000;
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+    .product-card .card-footer {
+        background-color: #ffffff;
+        border-top: 1px solid #000000;
+        padding: 0;
+    }
+
+    /* --- B&W Button --- */
+    .btn.btn-bw {
+        background-color: #000000;
+        color: #ffffff;
+        border: none;
+        border-radius: 0;
+        width: 100%;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 1rem 0.5rem;
+        transition: all 0.3s ease;
+    }
+    .btn.btn-bw:hover,
+    .btn.btn-bw:focus {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    /* --- Pagination --- */
+    .pagination .page-link {
+        color: #000000;
+        background-color: #ffffff;
+        border: 2px solid #000000;
+        border-radius: 0 !important;
+        margin: 0 2px;
+    }
+    .pagination .page-item.active .page-link {
+        background-color: #000000;
+        color: #ffffff;
+        border-color: #000000;
+    }
+    .pagination .page-item.disabled .page-link {
+        color: #888888;
+        background-color: #ffffff;
+        border-color: #888888;
+    }
+    .pagination .page-link:hover {
+        background-color: #f0f0f0;
+        color: #000000;
+    }
+</style>
+
+     <main class="container my-5">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="filter-sidebar p-3">
+                    <h4 class="mb-4">Filters</h4>
+
+                    <div class="mb-4">
+                        <h5>Category</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="#">All Apparel</a>
+                                <span class="category-count">12</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="#">Graphic Tees</a>
+                                <span class="category-count">5</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="#">Plain Tees</a>
+                                <span class="category-count">4</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="#">Long Sleeve</a>
+                                <span class="category-count">3</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5>Price Range</h5>
+                        <form>
+                            <div class="form-group">
+                                <label for="priceRange">Price: $10 — $50</label>
+                                <input type="range" class="form-control-range" id="priceRange" min="10" max="50" value="50">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <p class="mb-0">Showing 1-9 of 12 results</p>
+                    <form class="form-inline">
+                        <select class="form-control">
+                            <option selected>Default sorting</option>
+                            <option value="1">Sort by price: low to high</option>
+                            <option value="2">Sort by price: high to low</option>
+                            <option value="3">Sort by popularity</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 product-card">
+                            <a href="{{ url_for('product_detail') }}">
+                                <img src="https://placehold.co/600x600/000000/FFFFFF?text=Tee" class="card-img-top" alt="Classic Black Tee">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('product_detail') }}" class="text-dark">Classic Black Tee</a></h5>
+                                <h6 class="card-price">$24.99</h6>
+                            </div>
+                            <div class="card-footer"><a href="#" class="btn btn-bw">Add to Cart</a></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 product-card">
+                            <a href="{{ url_for('product_detail') }}">
+                                <img src="https://placehold.co/600x600/FFFFFF/000000?text=Tee" class="card-img-top" alt="Minimalist White">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('product_detail') }}" class="text-dark">Minimalist White</a></h5>
+                                <h6 class="card-price">$24.99</h6>
+                            </div>
+                            <div class="card-footer"><a href="#" class="btn btn-bw">Add to Cart</a></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 product-card">
+                            <a href="{{ url_for('product_detail') }}">
+                                <img src="https://placehold.co/600x600/1c1c1c/FFFFFF?text=Graphic" class="card-img-top" alt="Monochrome Graphic">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('product_detail') }}" class="text-dark">Monochrome Graphic</a></h5>
+                                <h6 class="card-price">$29.99</h6>
+                            </div>
+                            <div class="card-footer"><a href="#" class="btn btn-bw">Add to Cart</a></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 product-card">
+                            <a href="{{ url_for('product_detail') }}">
+                                <img src="https://placehold.co/600x600/333333/FFFFFF?text=Tee" class="card-img-top" alt="Charcoal Gray">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('product_detail') }}" class="text-dark">Charcoal Gray</a></h5>
+                                <h6 class="card-price">$26.00</h6>
+                            </div>
+                            <div class="card-footer"><a href="#" class="btn btn-bw">Add to Cart</a></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 product-card">
+                            <a href="{{ url_for('product_detail') }}">
+                                <img src="https://placehold.co/600x600/f0f0f0/000000?text=Graphic" class="card-img-top" alt="Abstract Line Art">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('product_detail') }}" class="text-dark">Abstract Line Art</a></h5>
+                                <h6 class="card-price">$29.99</h6>
+                            </div>
+                            <div class="card-footer"><a href="#" class="btn btn-bw">Add to Cart</a></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 product-card">
+                            <a href="{{ url_for('product_detail') }}">
+                                <img src="https://placehold.co/600x600/000000/FFFFFF?text=Long+Sleeve" class="card-img-top" alt="Black Long Sleeve">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('product_detail') }}" class="text-dark">Black Long Sleeve</a></h5>
+                                <h6 class="card-price">$35.00</h6>
+                            </div>
+                            <div class="card-footer"><a href="#" class="btn btn-bw">Add to Cart</a></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 product-card">
+                            <a href="{{ url_for('product_detail') }}">
+                                <img src="https://placehold.co/600x600/FFFFFF/000000?text=Long+Sleeve" class="card-img-top" alt="White Long Sleeve">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('product_detail') }}" class="text-dark">White Long Sleeve</a></h5>
+                                <h6 class="card-price">$35.00</h6>
+                            </div>
+                            <div class="card-footer"><a href="#" class="btn btn-bw">Add to Cart</a></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 product-card">
+                            <a href="{{ url_for('product_detail') }}">
+                                <img src="https://placehold.co/600x600/cccccc/000000?text=Tee" class="card-img-top" alt="Heather Gray">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('product_detail') }}" class="text-dark">Heather Gray</a></h5>
+                                <h6 class="card-price">$26.00</h6>
+                            </div>
+                            <div class="card-footer"><a href="#" class="btn btn-bw">Add to Cart</a></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 product-card">
+                            <a href="{{ url_for('product_detail') }}">
+                                <img src="https://placehold.co/600x600/111111/ffffff?text=Logo" class="card-img-top" alt="Minimal Logo Tee">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('product_detail') }}" class="text-dark">Minimal Logo Tee</a></h5>
+                                <h6 class="card-price">$28.00</h6>
+                            </div>
+                            <div class="card-footer"><a href="#" class="btn btn-bw">Add to Cart</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center mt-4">
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </main>
+{% endblock %}

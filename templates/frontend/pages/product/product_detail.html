@@ -1,0 +1,158 @@
+{% extends 'frontend/master.html' %}
+
+{% block content %}
+
+    <style>
+        /* --- Product Detail Specific Styles --- */
+
+        /* Typography */
+        .product-title {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-category {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-description {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        /* Inputs & Buttons */
+        .form-control-custom {
+            border: 1px solid #000;
+            border-radius: 0;
+            height: 50px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .btn-bw-lg {
+            background-color: #000;
+            color: #fff;
+            border: 1px solid #000;
+            border-radius: 0;
+            height: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-bw-lg:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* Return Button */
+        .btn-return {
+            color: #000;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            display: inline-flex; /* Keeps icon and text aligned */
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .btn-return:hover {
+            text-decoration: underline;
+            color: #333;
+        }
+
+        /* Image */
+        .product-main-image {
+            width: 100%;
+            object-fit: cover;
+            border: 1px solid #eee; /* Subtle border */
+        }
+    </style>
+
+    <main class="container my-5">
+
+        <div class="row">
+            <div class="col-12">
+                <a href="{{ url_for('home') }}" class="btn-return">
+                    <i class="fas fa-arrow-left mr-2"></i> &nbsp; Back to Shop
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}"
+                     id="mainProductImage"
+                     class="img-fluid product-main-image"
+                     alt="{{ product.name }}">
+
+                </div>
+
+            <div class="col-md-6">
+                <div class="pl-md-4">
+                    <p class="product-category">{{ product.category_name.name }}</p>
+                    <h1 class="product-title">{{ product.name }}</h1>
+                    <h2 class="product-price text-danger">${{ product.price }}</h2>
+
+                    <p class="product-description">
+                        {{ product.description if product.description and product.description.strip() != "" else "No description available for this item yet." }}
+                    </p>
+
+                    <hr class="my-4">
+
+                    <form action="#" method="POST"> <div class="row">
+                            <div class="col-3">
+                                <label for="quantity" class="sr-only">Quantity</label>
+                                <input type="number"
+                                       class="form-control form-control-custom"
+                                       id="quantity"
+                                       name="quantity"
+                                       value="1"
+                                       min="1"
+                                       max="10">
+                            </div>
+                            <div class="col-9">
+                                <button type="submit" class="btn btn-bw-lg btn-block w-100">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <hr class="my-4">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function(){
+            $('.thumbnail-image').on('click', function(){
+                var newImageSrc = $(this).data('src');
+                $('#mainProductImage').attr('src', newImageSrc);
+                $('.thumbnail-image').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+    </script>
+
+{% endblock %}

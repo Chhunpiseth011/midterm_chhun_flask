@@ -1,0 +1,195 @@
+{% extends 'admin/layout/master.html' %}
+{% block page_title %}
+	Admin | Product
+{% endblock %}
+{% block content %}
+    <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Product Page</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ url_for('products') }}">Product</a></li>
+              <li class="breadcrumb-item active">Form Product</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+          <div class="card p-3">
+              <div class="card-header">
+                  <a href="{{ url_for('products') }}" class="btn btn btn-outline-secondary">Back</a>
+              </div>
+              <div class="card-body">
+                 <form
+                    enctype="multipart/form-data"
+                    method="post"
+                    action="{{ url_for('add_product') if status == 'add' else url_for('edit_product') }}"
+                 >
+                     {#image#}
+                     <center>
+
+                         {% if status == 'add' %}
+                             <img
+                                 src="{{ url_for('static', filename="no-image.png") }}"
+                                 id="output"
+                                 class="img-preview"
+                             >
+                         {% endif %}
+                        {% if status == 'edit' %}
+                            <img
+                                  src="{% if product.image %}
+                                            {{ url_for('static', filename='uploads/resized_' ~ product.image) }}
+                                         {% else %}
+                                            {{ url_for('static', filename='no-image.png') }}
+                                         {% endif %}"
+                                 onerror="this.onerror=null;this.src='/static/error-image.png'"
+                                 id="output"
+                                 class="img-preview"
+                             >
+                         {% endif %}
+                     </center>
+                     <div class="form-group">
+                        <label>image</label>
+                            <input
+                                    type="file"
+                                    class="form-control custom-file-btn custom-file-field"
+                                    id="image"
+                                    name="image"
+                                    accept="image/*"
+                                    onchange="loadFile(event)"
+                            >
+                      </div>
+                     {#ProductName#}
+                     <div class="form-group">
+                        <label>Name(*)</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                value="{{ product.name if status == 'edit' }}"
+                                placeholder="Enter Product Name"
+                                required
+                        >
+                     </div>
+                     {#Category#}
+                     <div class="form-group">
+                        <label for="exampleInputEmail1">Category(*)</label>
+                       <select
+                               class="form-control"
+                               id="category"
+                               name="category"
+                       >
+                           {% for item in category %}
+                               <option
+                                       value="{{ item.id }}"
+                                       {{ 'selected' if product.category == item.name }}
+                               >{{ item.name }}</option>
+                           {% endfor %}
+
+                        </select>
+                     </div>
+                     {#Cost#}
+                     <div class="form-group">
+                        <label>Cost(*)</label>
+                        <input
+                            step="any"
+                            type="number"
+                            class="form-control"
+                            id="cost"
+                            name="cost"
+                            value="{{ product.cost if status == 'edit' else 0}}"
+                        >
+                     </div>
+                     {#Price#}
+                     <div class="form-group">
+                        <label>Price(*)</label>
+                        <input
+                            step="any"
+                            type="number"
+                            class="form-control"
+                            id="Price"
+                            name="price"
+                            value="{{ product.price if status == 'edit' else 0}}"
+                        >
+                     </div>
+                     {#Description#}
+                     <div class="form-group">
+                        <label>Description</label>
+                        <textarea
+                            class="form-control"
+                            id="description"
+                            name="description"
+                        >{{ product.description }}</textarea>
+                     </div>
+                     {#Product_id#}
+                     {% if status == 'edit' %}
+                      <input
+                          type="hidden"
+                          name="product_id"
+                          value="{{ product.id }}"
+
+                      >
+                      <input
+                          type="hidden"
+                          name="old_image"
+                          value="{{ product.image }}"
+
+                      >
+                      {% endif %}
+
+                  {% if status == 'add' %}
+                      <button
+                          type="submit"
+                          class="btn btn-danger"
+                  >
+                      Cancel
+                  </button>
+                  {% endif %}
+
+                  {% if status == 'add' %}
+                      <button
+                              type="submit"
+                              class="btn btn-primary float-right"
+                      >
+                          Save
+                      </button>
+                  {% endif %}
+
+                  {% if status == 'edit' %}
+                      <button
+                              type="submit"
+                              class="btn btn-warning float-right"
+                      >
+                          Update
+                      </button>
+                  {% endif %}
+
+                </form>
+              </div>
+          </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+    <script>
+      var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+        }
+      };
+    </script>
+{% endblock %}

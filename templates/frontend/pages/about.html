@@ -1,0 +1,118 @@
+{% extends 'frontend/master.html' %}
+
+{% block slide %}
+    {# This block is empty, as in your example #}
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+    /* --- Black & White 'About Us' Theme --- */
+
+    main {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    /* Section Headings */
+    .our-story h1,
+    .meet-the-team h2,
+    .our-mission h2 {
+        color: #000000;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+    .lead {
+        font-size: 1.2rem;
+        color: #1a1a1a;
+    }
+
+    /* Images */
+    .our-story img.img-fluid {
+        border: 2px solid #000000;
+        box-shadow: none !important;
+        object-fit: cover;
+        aspect-ratio: 4 / 3;
+    }
+
+    .team-member img.rounded-circle {
+        border: 2px solid #000000;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    /* Team Member Text */
+    .team-member h4 {
+        font-weight: 700;
+        color: #000000;
+        margin-top: 1rem;
+    }
+
+    .team-member .text-muted {
+        color: #000000 !important;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Divider */
+    hr {
+        border: none;
+        border-top: 2px solid #000000;
+        opacity: 1;
+    }
+</style>
+
+<main class="container my-5">
+    <section class="our-story mb-5">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <h1 class="display-4">The Fabric of Our Brand</h1>
+                <p class="lead">Founded in 2025, our brand was born from a simple obsession: the perfect T-shirt. We believe that true style is built on a foundation of high-quality, timeless essentials.</p>
+                <p>We're not about fast fashion. We're about deliberate design. From our small studio to your wardrobe, our focus is on premium materials, ethical production, and minimalist designs that you'll reach for day after day, year after year.</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="my-5">
+
+    <section class="meet-the-team text-center mb-5">
+        <h2 class="mb-5">Meet the Creatives</h2>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400" class="rounded-circle mb-3" alt="Founder">
+                    <h4>Alex Chen</h4>
+                    <p class="text-muted">Founder & Creative Director</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" class="rounded-circle mb-3" alt="Head of Design">
+                    <h4>Marcus Cole</h4>
+                    <p class="text-muted">Head of Materials</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400" class="rounded-circle mb-3" alt="Brand Manager">
+                    <h4>Maya Jenkins</h4>
+                    <p class="text-muted">Brand & Community</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="my-5">
+
+    <section class="our-mission text-center">
+        <h2>Our Mission</h2>
+        <p class="lead mt-3 mx-auto" style="max-width: 800px;">To elevate the everyday. We create the essential pieces that form the backbone of a modern wardrobe, empowering you to build a better, more intentional closet.</p>
+    </section>
+</main>
+{% endblock %}

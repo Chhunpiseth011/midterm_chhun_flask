@@ -1,0 +1,109 @@
+{% extends 'frontend/master.html' %}
+
+{% block slide %}
+    {# This block is empty, as in your example #}
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+    /* --- B&W Contact Page Styles --- */
+    .contact-card {
+        border: 2px solid #000000;
+        border-radius: 0;
+        box-shadow: none !important;
+    }
+
+    /* Style form labels to match the theme */
+    .contact-form .form-group label {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.9rem;
+    }
+
+    /* Make sure .btn-bw works at 100% width */
+    .btn-bw.btn-block {
+        width: 100%;
+        padding: 1rem 0.5rem; /* Ensure padding is consistent */
+    }
+
+    /* Style the contact info icons (remove blue) */
+    .contact-info .lead {
+        font-size: 1.1rem; /* A bit smaller than .lead */
+        color: #000000;
+    }
+    .contact-info i {
+        color: #000000 !important; /* Override all other styles */
+        width: 25px; /* Give icons consistent spacing */
+    }
+
+    /* Style the social icons (like footer) */
+    .contact-social a {
+        color: #000000;
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        transition: all 0.2s ease;
+    }
+    .contact-social a:hover {
+        color: #888888;
+    }
+</style>
+
+     <main class="container my-5">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1 class="page-title">Get in Touch</h1>
+                <p class="lead">We'd love to hear from you! Please fill out the form below.</p>
+                <hr class="my-4">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 mb-4">
+                <div class="card p-4 contact-card contact-form">
+
+                    <form method="POST" action="{{ url_for('contact') }}">
+                        {{ form.hidden_tag() }}
+
+                        <div class="form-group">
+                            {{ form.name.label }}
+                            {{ form.name(class='form-control',placeholder='Enter your name ') }}
+                            {% for error in form.name.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.email.label }}
+                            {{ form.email(class='form-control',placeholder='Enter your email ') }}
+                            {% for error in form.email.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.subject.label }}
+                            {{ form.subject(class='form-control',placeholder='Enter your subject ') }}
+                            {% for error in form.subject.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.message.label }}
+                            {{ form.message(class='form-control', rows='5', placeholder='Enter your message ') }}
+                            {% for error in form.message.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                         {{ form.submit(class='btn btn-bw btn-block') }}
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+{% endblock %}
